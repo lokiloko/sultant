@@ -15,9 +15,9 @@ module.exports = {
           message: "Users data tidak ditemukan"
         })
       }
-    }).catch((reason) => {
+    }).catch(({response}) => {
       res.status(400).json({
-        message: reason
+        message: response.data
       })
     })
   },
@@ -37,6 +37,21 @@ module.exports = {
     })
   },
 
+  login: (req, res) => {
+    axios.post(`${uri}?action=login`, req.body).then(({data}) => {
+      // console.log(data)
+      res.status(200).json({
+        message: "Login Success",
+        token: data.token
+      })
+    }).catch(({response}) => {
+      // console.log(response.data);
+      res.status(400).json({
+        message: response.data
+      })
+    })
+  },
+
   update: (req, res) => {
     // console.log("params --- ", req.body);
     axios.put(`${uri}?id=${req.params.id}`, req.body)
@@ -46,10 +61,10 @@ module.exports = {
         message: "Update Success",
         data: data.data
       })
-    }).catch((reason) => {
+    }).catch(({response}) => {
       // console.log(response);
       res.status(400).json({
-        message: reason
+        message: response.data
       })
     })
   },
@@ -62,9 +77,9 @@ module.exports = {
         message: "Delete Success",
         data: data.data
       })
-    }).catch((reason) => {
+    }).catch(({response}) => {
       res.status(400).json({
-        message: reason
+        message: response.data
       })
     })
   }

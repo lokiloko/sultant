@@ -68,6 +68,38 @@ describe('Users route', function() {
     })
   })
 
+  it('Should return token when user login is correct', function(done) {
+    chai.request(app)
+    .post('/users/login')
+    .send({
+      email: 'anton@gmail.com',
+      password: 'anton'
+    })
+    .end((err, res) => {
+      res.status.should.equal(200)
+      res.body.should.be.an('object')
+      res.body.message.should.be.a('string')
+      res.body.message.should.equal("Login Success")
+      res.body.token.should.be.a('string')
+      res.body.token.should.have.lengthOf.above(0)
+      done()
+    })
+  })
+
+  it('Should return error when user login is incorrect', function(done) {
+    chai.request(app)
+    .post('/users/login')
+    .send({
+      email: 'antons@gmail.com',
+      password: 'antons'
+    })
+    .end((err, res) => {
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
   it('Should return error when name / email / password isEmpty', function(done) {
     chai.request(app)
     .post('/users')
