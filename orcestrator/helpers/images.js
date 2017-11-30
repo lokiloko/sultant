@@ -44,16 +44,6 @@ function uploadFile(req, res, next) {
   stream.end(req.file.buffer)
 }
 
-function deleteFile(fileName){
-  bucket.deleteFiles({prefix: `${fileName}`}, (err) => {
-    if (!err) {
-      console.log("Berhasil Hapus File di Google Cloud Storage");
-    } else {
-      console.log("Gagal Hapus File di Google Cloud Storage");
-    }
-  });
-}
-
 let multer = Multer({
   storage: Multer.MemoryStorage,
   limits: {
@@ -64,6 +54,5 @@ let multer = Multer({
 module.exports = {
   getUrl,
   uploadFile,
-  deleteFile,
   multer
 }

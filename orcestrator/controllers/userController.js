@@ -5,16 +5,10 @@ module.exports = {
   findAll: (req, res) => {
     axios.get(uri).then(({data}) => {
       // console.log(data)
-      if (data.length !== 0) {
-        res.status(200).json({
-          message: "Tampil Semua User",
-          data: data
-        })
-      } else {
-        res.status(400).json({
-          message: "Users data tidak ditemukan"
-        })
-      }
+      res.status(200).json({
+        message: "Tampil Semua User",
+        data: data
+      })
     }).catch(({response}) => {
       res.status(400).json({
         message: response.data
