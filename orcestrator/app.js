@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const transactions = require('./routes/transactions')
 const users = require('./routes/users')
+const ocr = require('./routes/ocr')
 
 
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ app.use(cors())
 app.use('/transactions', transactions)
 
 app.use('/users', users)
+app.use('/ocr', ocr)
 
 app.listen(3000, (err) => {
   if(err) {
