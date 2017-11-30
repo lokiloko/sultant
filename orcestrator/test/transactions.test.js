@@ -2,13 +2,12 @@ var chai = require('chai')
 var should = chai.should()
 var chaiHttp = require('chai-http')
 var app = require('../app')
-var app2 = 'https://us-central1-ian-hacktiv8.cloudfunctions.net/transactionsCRUD'
 chai.use(chaiHttp)
 let newid = ''
 describe('transactions route', function(){
   it('should return false if user not valid', function (done) {
-  chai.request(app2)
-  .post('/')
+  chai.request(app)
+  .post('/transactions')
   .send({
     user:'',
     items: [
@@ -63,8 +62,8 @@ describe('transactions route', function(){
 
 
   it('should return false if have no item', function (done) {
-  chai.request(app2)
-  .post('/')
+  chai.request(app)
+  .post('/transactions')
   .send({
     user:'5a1e8b34261a720002687e06',
     totalPrice: 150000,
@@ -77,8 +76,8 @@ describe('transactions route', function(){
 
 
   it('should return new transaction, after they\'re saved to the database', function (done) {
-  chai.request(app2)
-  .post('/')
+  chai.request(app)
+  .post('/transactions')
   .send({
     user:'5a1e8b34261a720002687e06',
     items: [
@@ -117,8 +116,8 @@ describe('transactions route', function(){
 
 
   it('should return all list transaction',function (done){
-    chai.request(app2)
-    .get('/')
+    chai.request(app)
+    .get('/transactions')
     .end(function (err, response){
       response.status.should.equal(200)
       response.body.should.be.an('array')
@@ -133,8 +132,8 @@ describe('transactions route', function(){
   })
 
   it('should return transaction data by user', function (done) {
-    chai.request(app2)
-    .get('/?action=user&id=5a1e8b34261a720002687e06')
+    chai.request(app)
+    .get('/transactions/byuser/5a1e8b34261a720002687e06')
 
     .end(function (err, response) {
       response.status.should.equal(200)
@@ -151,8 +150,8 @@ describe('transactions route', function(){
   })
 
   it('should return transaction detail by transaction id', function (done) {
-    chai.request(app2)
-    .get(`/?id=${newid}`)
+    chai.request(app)
+    .get(`/transactions/detail/${newid}`)
 
     .end(function (err, response) {
       response.status.should.equal(200)
@@ -169,8 +168,8 @@ describe('transactions route', function(){
 
 
   it('should edit transactions data by transaction id', function (done) {
-    chai.request(app2)
-    .put(`/?id=${newid}`)
+    chai.request(app)
+    .put(`/transactions/${newid}`)
     .send({
       totalPrice: 120000,
     })
@@ -184,8 +183,9 @@ describe('transactions route', function(){
   })
 
   it('should delete data transactions by transaction id',function(done){
-  chai.request(app2)
-  .delete(`/?id=${newid}`)
+  chai.request(app)
+  .delete(`/transactions/${newid}`)
+
   .end(function(err,response){
     response.status.should.equal(200)
     response.body.should.be.an('object')
