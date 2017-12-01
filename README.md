@@ -32,7 +32,7 @@ https://us-central1-ian-hacktiv8.cloudfunctions.net/usersCRUD
 |/   |GET    |Ambil semua data user      | |
 |/   |POST    |Register data user baru     | <ul><li>[x] nik (string)</li><li>[x] nama (string)</li><li>[x] pekerjaan (string)</li><li>[x] provinsi (string)</li><li>[x] kota (string)</li></ul> |
 |/?id=1234   |GET    |Ambil satu data user yg id nya 1234    | |
-|/?id=abcd   |PUT    |Update satu data user yg id nya abcd    |<ul><li>[ ] nik (string)</li><li>[ ] nama (string)</li><li>[ ] tempatLahir (string)</li><li>[ ] tanggalLahir (string)</li><li>[ ] alamat (string)</li><li>[ ] rtRw (string)</li><li>[ ] kelurahan (string)</li><li>[ ] agama (string)</li><li>[ ] status (string)</li><li>[ ] pekerjaan (string)</li><li>[ ] kewarganegaraan (string)</li><li>[ ] berlaku (string)</li><li>[ ] golonganDarah (string)</li><li>[ ] jenisKelamin (string)</li></ul> |
+|/?id=abcd   |PUT    |Update satu data user yg id nya abcd    |<ul><li>[ ] nik (string)</li><li>[ ] nama (string)</li><li>[ ] pekerjaan (string)</li><li>[ ] provinsi (string)</li><li>[ ] kota (string)</li></ul> |
 |/?id=1b2c   |DELETE    |Delete satu data user yg id nya 1b2c    | |
 
 ### List of label harga OCR endpoint
@@ -44,7 +44,7 @@ https://us-central1-ian-hacktiv8.cloudfunctions.net/ocrGoogleVision
   
 ### List of ktp OCR endpoint
 
-link coming soon
+https://us-central1-ian-hacktiv8.cloudfunctions.net/ocrKtp
 
 | Routes       | Method | Description | Required Param |
 |--------------|--------|-------------|----------------|
