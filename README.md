@@ -19,7 +19,7 @@ link coming soon
 |--------------|--------|-------------|----------------|
 
 ### List of suggestion endpoint
-link coming soon
+https://us-central1-pure-faculty-187614.cloudfunctions.net/shopSuggestion
 
 | Routes       | Method | Description | Required Param |
 |--------------|--------|-------------|----------------|
@@ -41,6 +41,9 @@ https://us-central1-ian-hacktiv8.cloudfunctions.net/ocrGoogleVision
 | Routes       | Method | Description | Required Param |
 |--------------|--------|-------------|----------------|
 |/   |POST    |Ambil data hasil baca label harga      |<ul><li>[x] imageUri (string) </li> |
+* pola image yg support
+  https://4.bp.blogspot.com/-ecUgQIyl70I/VsgZiAi-Y-I/AAAAAAAAFw0/khnNucRAEjI/s1600/chitato%2Bmi%2Bgoreng.jpg
+  https://assets-a1.kompasiana.com/statics/files/1425885036301936272.jpg
   
 ### List of ktp OCR endpoint
 
