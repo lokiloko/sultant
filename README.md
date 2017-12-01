@@ -23,6 +23,8 @@ https://us-central1-pure-faculty-187614.cloudfunctions.net/shopSuggestion
 
 | Routes       | Method | Description | Required Param |
 |--------------|--------|-------------|----------------|
+|/   |GET    |Ambil list kategori      | |
+|/   |POST    |Cek transaksi untuk mendapatkan saran      |<ul><li>[x] shopLimit (int)</li><li>[x] priority (Array of String) </li><li>[x] items (Array of Objects) <ul><li>[x] name</li><li>[x] category</li><li>[x] qty</li><li>[x] price</li></ul></li></ul>           |
 
 ### List of users CRUD endpoint
 https://us-central1-ian-hacktiv8.cloudfunctions.net/usersCRUD
