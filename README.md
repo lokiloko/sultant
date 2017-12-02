@@ -24,7 +24,7 @@ https://us-central1-pure-faculty-187614.cloudfunctions.net/shopSuggestion
 | Routes       | Method | Description | Required Param |
 |--------------|--------|-------------|----------------|
 |/   |GET    |Ambil list kategori      | |
-|/   |POST    |Cek transaksi untuk mendapatkan saran      |<ul><li>[x] shopLimit (int)</li><li>[x] priority (Array of String) </li><li>[x] items (Array of Objects) <ul><li>[x] name</li><li>[x] category</li><li>[x] qty</li><li>[x] price</li></ul></li></ul>           |
+|/   |POST    |Cek transaksi untuk mendapatkan saran      |<ul><li>[x] priority (Array of String) </li><li>[x] items (Array of Objects) <ul><li>[x] name</li><li>[x] category</li><li>[x] qty</li><li>[x] price</li></ul></li></ul>           |
 
 ### List of users CRUD endpoint
 https://us-central1-ian-hacktiv8.cloudfunctions.net/usersCRUD
@@ -32,7 +32,7 @@ https://us-central1-ian-hacktiv8.cloudfunctions.net/usersCRUD
 | Routes       | Method | Description | Required Param |
 |--------------|--------|-------------|----------------|
 |/   |GET    |Ambil semua data user      | |
-|/   |POST    |Register data user baru     | <ul><li>[x] nik (string)</li><li>[x] nama (string)</li><li>[x] pekerjaan (string)</li><li>[x] provinsi (string)</li><li>[x] kota (string)</li></ul> |
+|/   |POST    |Register data user baru     | <ul><li>[x] nik (string)</li><li>[x] nama (string)</li><li>[x] jenisKelamin (string)</li><li>[x] provinsi (string)</li><li>[x] kota (string)</li><li>[x] agama</li><li><[x] status</li><li>[x] tempatLahir</li><li>[x] tanggalLahir</li></ul> |
 |/?id=1234   |GET    |Ambil satu data user yg id nya 1234    | |
 |/?id=abcd   |PUT    |Update satu data user yg id nya abcd    |<ul><li>[ ] nik (string)</li><li>[ ] nama (string)</li><li>[ ] pekerjaan (string)</li><li>[ ] provinsi (string)</li><li>[ ] kota (string)</li></ul> |
 |/?id=1b2c   |DELETE    |Delete satu data user yg id nya 1b2c    | |
