@@ -9,9 +9,16 @@ chai.use(chaiHttp)
 var postedId = ''
 
 var dummyDataUser = {
-  name: "anton",
-  email: "anton@gmail.com",
-  password: "anton"
+  nik: '123',
+  nama: 'John',
+  jenisKelamin: 'Laki laki',
+  provinsi: 'JAWA BARAT',
+  kota: 'JAKARTA',
+  agama: '---',
+  status: 'BELUM NIKAH',
+  tanggalLahir: '30 FEBRUARI 1999',
+  tempatLahir: 'JAKARTA'
+
 }
 
 describe('Users route', function() {
@@ -20,11 +27,10 @@ describe('Users route', function() {
     .get('/users')
     .end((err, res) => {
       res.status.should.equal(200)
-      res.body.should.be.an('object')
-      res.body.message.should.be.a('string')
-      res.body.message.should.equal("Tampil Semua User")
-      res.body.data.should.be.an('array')
-      res.body.data.should.have.lengthOf.above(0)
+      res.body.should.be.an('array')
+      // res.body.message.should.equal("Tampil Semua User")
+      // res.body.data.should.be.an('array')
+      // res.body.data.should.have.lengthOf.above(0)
       done()
     })
   })
@@ -33,18 +39,15 @@ describe('Users route', function() {
     chai.request(app)
     .get('/users')
     .end((err, res) => {
-      res.body.data[0].should.have.property('_id')
-      res.body.data[0]._id.should.be.a('string')
-      res.body.data[0].should.have.property('name')
-      res.body.data[0].name.should.be.a('string')
-      res.body.data[0].should.have.property('email')
-      res.body.data[0].email.should.be.a('string')
-      res.body.data[0].should.have.property('password')
-      res.body.data[0].password.should.be.a('string')
+      res.status.should.equal(200)
+      res.body.should.be.an('array')
+      res.body[0].should.have.property('_id')
+      res.body[0]._id.should.be.a('string')
+
       done()
     })
   })
-
+  //
   it('Should post user data and return posted user data', function(done) {
     chai.request(app)
     .post('/users')
@@ -55,58 +58,232 @@ describe('Users route', function() {
       res.body.message.should.be.a('string')
       res.body.message.should.equal('Insert Success')
       res.body.data.should.be.an('object')
-      res.body.data.data.should.have.property('_id')
-      res.body.data.data._id.should.be.a('string')
-      res.body.data.data.should.have.property('name')
-      res.body.data.data.name.should.be.a('string')
-      res.body.data.data.should.have.property('email')
-      res.body.data.data.email.should.be.a('string')
-      res.body.data.data.should.have.property('password')
-      res.body.data.data.password.should.be.a('string')
-      postedId = res.body.data.data._id
+      res.body.data.should.have.property('_id')
+      res.body.data._id.should.be.a('string')
+      res.body.data.should.have.property('nama')
+      res.body.data.nama.should.be.a('string')
+      res.body.data.should.have.property('jenisKelamin')
+      res.body.data.jenisKelamin.should.be.a('string')
+      res.body.data.should.have.property('provinsi')
+      res.body.data.provinsi.should.be.a('string')
+      postedId = res.body.data._id
       done()
     })
   })
 
-  it('Should return token when user login is correct', function(done) {
+  it('Should get detail user data', function(done) {
     chai.request(app)
-    .post('/users/login')
-    .send({
-      email: 'anton@gmail.com',
-      password: 'anton'
-    })
+    .get(`/users/${postedId}`)
     .end((err, res) => {
       res.status.should.equal(200)
-      res.body.should.be.an('object')
-      res.body.message.should.be.a('string')
-      res.body.message.should.equal("Login Success")
-      res.body.token.should.be.a('string')
-      res.body.token.should.have.lengthOf.above(0)
+      // res.body.should.be.an('object')
       done()
     })
   })
 
-  it('Should return error when user login is incorrect', function(done) {
+
+  it('Should error when id not found for detail', function(done) {
     chai.request(app)
-    .post('/users/login')
+    .get(`/users/111`)
+    .end((err, res) => {
+      res.status.should.equal(400)
+      // res.body.should.be.an('object')
+      done()
+    })
+  })
+
+
+
+
+  it('Should return error when nama isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
     .send({
-      email: 'antons@gmail.com',
-      password: 'antons'
+      nik: '123',
+      nama: '',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
     })
     .end((err, res) => {
+      // console.log(res.status);
       res.status.should.equal(400)
       res.body.should.be.an('object')
       done()
     })
   })
 
-  it('Should return error when name / email / password isEmpty', function(done) {
+  it('Should return error when nik isEmpty', function(done) {
     chai.request(app)
     .post('/users')
     .send({
-      name: '',
-      email: '',
-      password: 'anton'
+      nik: '',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when gender isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: '',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when province isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: '',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when city isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: '',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when religion isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when status isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: '',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when birthdate isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '',
+      tempatLahir: 'JAKARTA'
+    })
+    .end((err, res) => {
+      // console.log(res.status);
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return error when birthplace isEmpty', function(done) {
+    chai.request(app)
+    .post('/users')
+    .send({
+      nik: '123',
+      nama: 'John',
+      jenisKelamin: 'Laki laki',
+      provinsi: 'JAWA BARAT',
+      kota: 'JAKARTA',
+      agama: '---',
+      status: 'BELUM NIKAH',
+      tanggalLahir: '30 FEBRUARI 1999',
+      tempatLahir: ''
     })
     .end((err, res) => {
       // console.log(res.status);
@@ -120,7 +297,7 @@ describe('Users route', function() {
     chai.request(app)
     .put(`/users/${postedId}`)
     .send({
-      name: 'medan',
+      nama: 'Jane',
     })
     .end((err, res) => {
       res.status.should.equal(200)
@@ -128,16 +305,33 @@ describe('Users route', function() {
       res.body.message.should.be.a('string')
       res.body.message.should.equal("Update Success")
       res.body.data.should.be.an('object')
-      res.body.data.name.should.equal('medan')
+      res.body.data.nama.should.equal('Jane')
+      done()
+    })
+  })
+  //
+  it('Should return updated user gender when only gender is updated', function(done) {
+    chai.request(app)
+    .put(`/users/${postedId}`)
+    .send({
+      jenisKelamin: 'Perempuan',
+    })
+    .end((err, res) => {
+      res.status.should.equal(200)
+      res.body.should.be.an('object')
+      res.body.message.should.be.a('string')
+      res.body.message.should.equal("Update Success")
+      res.body.data.should.be.an('object')
+      res.body.data.jenisKelamin.should.equal('Perempuan')
       done()
     })
   })
 
-  it('Should return updated user email when only email is updated', function(done) {
+  it('Should return updated user provinsi when only provinsi is updated', function(done) {
     chai.request(app)
     .put(`/users/${postedId}`)
     .send({
-      email: 'medan@gmail.com',
+      provinsi: 'medan',
     })
     .end((err, res) => {
       res.status.should.equal(200)
@@ -145,16 +339,16 @@ describe('Users route', function() {
       res.body.message.should.be.a('string')
       res.body.message.should.equal("Update Success")
       res.body.data.should.be.an('object')
-      res.body.data.email.should.equal('medan@gmail.com')
+      res.body.data.provinsi.should.equal('medan')
       done()
     })
   })
 
-  it('Should return hash updated password when only password is updated', function(done) {
+  it('Should return updated user city when only city is updated', function(done) {
     chai.request(app)
     .put(`/users/${postedId}`)
     .send({
-      password: 'medan',
+      kota: 'medan',
     })
     .end((err, res) => {
       res.status.should.equal(200)
@@ -162,18 +356,16 @@ describe('Users route', function() {
       res.body.message.should.be.a('string')
       res.body.message.should.equal("Update Success")
       res.body.data.should.be.an('object')
-      res.body.data.password.should.have.lengthOf.above(0)
+      res.body.data.kota.should.equal('medan')
       done()
     })
   })
 
-  it('Should return updated user data when all user data is updated', function(done) {
+  it('Should return updated user religion when only religion is updated', function(done) {
     chai.request(app)
     .put(`/users/${postedId}`)
     .send({
-      name: 'anton',
-      email: 'anton@gmail.com',
-      password: 'anton'
+      agama: 'TOBAT',
     })
     .end((err, res) => {
       res.status.should.equal(200)
@@ -181,6 +373,79 @@ describe('Users route', function() {
       res.body.message.should.be.a('string')
       res.body.message.should.equal("Update Success")
       res.body.data.should.be.an('object')
+      res.body.data.agama.should.equal('TOBAT')
+      done()
+    })
+  })
+
+  it('Should return updated user status when only status is updated', function(done) {
+    chai.request(app)
+    .put(`/users/${postedId}`)
+    .send({
+      status: 'NIKAH',
+    })
+    .end((err, res) => {
+      res.status.should.equal(200)
+      res.body.should.be.an('object')
+      res.body.message.should.be.a('string')
+      res.body.message.should.equal("Update Success")
+      res.body.data.should.be.an('object')
+      res.body.data.status.should.equal('NIKAH')
+      done()
+    })
+  })
+
+  it('Should return updated user birtdate when only birtdate is updated', function(done) {
+    chai.request(app)
+    .put(`/users/${postedId}`)
+    .send({
+      tanggalLahir: '29 FEBRUARI 2000',
+    })
+    .end((err, res) => {
+      res.status.should.equal(200)
+      res.body.should.be.an('object')
+      res.body.message.should.be.a('string')
+      res.body.message.should.equal("Update Success")
+      res.body.data.should.be.an('object')
+      res.body.data.tanggalLahir.should.equal('29 FEBRUARI 2000')
+      done()
+    })
+  })
+
+  it('Should return error when update id not found', function(done) {
+    chai.request(app)
+    .put(`/users/111`)
+    .send({
+      tempatLahir: 'PADANG',
+    })
+    .end((err, res) => {
+      res.status.should.equal(400)
+      done()
+    })
+  })
+
+  it('Should return updated user birth place when only birth place is updated', function(done) {
+    chai.request(app)
+    .put(`/users/${postedId}`)
+    .send({
+      tempatLahir: 'PADANG',
+    })
+    .end((err, res) => {
+      res.status.should.equal(200)
+      res.body.should.be.an('object')
+      res.body.message.should.be.a('string')
+      res.body.message.should.equal("Update Success")
+      res.body.data.should.be.an('object')
+      res.body.data.tempatLahir.should.equal('PADANG')
+      done()
+    })
+  })
+
+  it('Should error when delete userid not found', function(done) {
+    chai.request(app)
+    .delete(`/users/111`)
+    .end((err, res) => {
+      res.status.should.equal(400)
       done()
     })
   })
