@@ -126,9 +126,6 @@ describe('transactions route', function(){
     .get('/transactions/byuser/5a1e8b34261asbaksnfkabglah')
     .end(function (err, response) {
       response.status.should.equal(400)
-      response.body.should.be.an('object')
-      response.body.should.have.property('message')
-      response.body.message.should.be.a('string')
       done()
     })
   })
@@ -154,9 +151,6 @@ describe('transactions route', function(){
     .get(`/transactions/detail/5a1e8b34261asbaksnfkabglah`)
     .end(function (err, response) {
       response.status.should.equal(400)
-      response.body.should.be.an('object')
-      response.body.should.have.property('message')
-      response.body.message.should.be.a('string')
       done()
     })
   })
@@ -181,9 +175,6 @@ describe('transactions route', function(){
     .put(`/transactions/5a1e8b34261asbaksnfkabglah`)
     .end(function (err, response) {
       response.status.should.equal(400)
-      response.body.should.be.an('object')
-      response.body.should.have.property('message')
-      response.body.message.should.be.a('string')
       done()
     })
   })
@@ -204,9 +195,6 @@ describe('transactions route', function(){
     .delete(`/transactions/5a1e8b34261asbaksnfkabglah`)
     .end(function(err,response){
       response.status.should.equal(400)
-      response.body.should.be.an('object')
-      response.body.should.have.property('message')
-      response.body.message.should.be.a('string')
       done()
     })
   })
