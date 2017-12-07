@@ -19,7 +19,7 @@
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.5",
-    "string-similarity": "^1.2.0"
+    "string-similarity": "^1.2.0",
     "multer": "^1.3.0"
   },
   "devDependencies": {
