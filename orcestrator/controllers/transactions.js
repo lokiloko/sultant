@@ -6,8 +6,8 @@ module.exports = {
     axios.get(uri)
     .then(({data})=>{
       res.status(200).json(data)
-    }).catch(({data})=>{
-      res.status(400).json(data)
+    }).catch(({response})=>{
+      res.status(400).json(response.data)
     })
   },
 
@@ -15,8 +15,9 @@ module.exports = {
     axios.get(`${uri}/?action=user&id=${req.params.userId}`)
     .then(({data})=>{
       res.status(200).json(data)
-    }).catch(({data})=>{
-      res.status(400).json(data)
+    }).catch(({response})=>{
+      // console.log(response.data);
+      res.status(400).json(response.data)
     })
   },
 
@@ -24,8 +25,8 @@ module.exports = {
     axios.get(`${uri}/?id=${req.params.transactionId}`)
     .then(({data})=>{
       res.status(200).json(data)
-    }).catch(({data})=>{
-      res.status(400).json(data)
+    }).catch(({response})=>{
+      res.status(400).json(response.data)
     })
   },
 
@@ -33,8 +34,8 @@ module.exports = {
     axios.put(`${uri}/?id=${req.params.transactionId}`,req.params.body)
     .then(({data})=>{
       res.status(200).json(data)
-    }).catch(({data})=>{
-      res.status(400).json(data)
+    }).catch(({response})=>{
+      res.status(400).json(response.data)
     })
   },
 
@@ -42,8 +43,8 @@ module.exports = {
     axios.delete(`${uri}/?id=${req.params.transactionId}`)
     .then(({data})=>{
       res.status(200).json(data)
-    }).catch(({data})=>{
-      res.status(400).json(data)
+    }).catch(({response})=>{
+      res.status(400).json(response.data)
     })
   },
 
@@ -51,10 +52,8 @@ module.exports = {
     axios.post(uri,req.body)
     .then(({data})=>{
       res.status(200).json(data)
-    }).catch(({data})=>{
-      res.status(400).json(data)
+    }).catch(({response})=>{
+      res.status(400).json(response.data)
     })
   },
-
-
 }

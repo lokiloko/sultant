@@ -450,6 +450,21 @@ describe('Users route', function() {
     })
   })
 
+  it('Should return updated error when id is not valid', function(done) {
+    chai.request(app)
+    .put(`/users/asihdagjlsahgail`)
+    .send({
+      name: 'anton',
+      email: 'anton@gmail.com',
+      password: 'anton'
+    })
+    .end((err, res) => {
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+
   it('Should return deleted user data when user is deleted', function(done) {
     chai.request(app)
     .delete(`/users/${postedId}`)
@@ -459,6 +474,16 @@ describe('Users route', function() {
       res.body.message.should.be.a('string')
       res.body.message.should.equal("Delete Success")
       res.body.data.should.be.an('object')
+      done()
+    })
+  })
+
+  it('Should return updated error when id is not valid', function(done) {
+    chai.request(app)
+    .delete(`/users/asihdagjlsahgail`)
+    .end((err, res) => {
+      res.status.should.equal(400)
+      res.body.should.be.an('object')
       done()
     })
   })
