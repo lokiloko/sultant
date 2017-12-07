@@ -11,7 +11,6 @@ const transactions = require('./routes/transactions')
 const users = require('./routes/users')
 
 const sugestion = require('./routes/sugestion')
-const ocr = require('./routes/ocr')
 
 
 app.use(bodyParser.json());
@@ -24,7 +23,6 @@ app.use('/ocr_pricetag', ocr_pricetag)
 app.use('/sugestion', sugestion)
 app.use('/transactions', transactions)
 app.use('/users', users)
-app.use('/ocr', ocr)
 
 
 app.listen(3000, () => {
